@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HAdapter Demo</string>
+    <string name="simple_data_page">Simple data page</string>
+    <string name="multiple_data_page">Multiple data page</string>
 </resources>
