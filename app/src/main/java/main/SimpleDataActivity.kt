@@ -15,52 +15,95 @@ import data.sortItems
 
 class SimpleDataActivity : AppCompatActivity(R.layout.recycler_layout) {
 
+    private val tag: String = "SimpleDataActivity"
+    private lateinit var basicAdapter: HAdapterBasic<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupAdapter()
+        addItems()
+        setItemAt("This data has been changed!", 0)
+        removeItemAt(33)
+        removeItemAt(2)
+        sortItems()
     }
 
+    /* Methods below initialize our adapter with DiffUtil and ItemClick (Which can be set to null) */
+
+    /**
+     * Creates instance of [HAdapterBasic] and sets it as adapter of our recyclerView
+     */
     private fun setupAdapter() {
-        // We initialize our HAdapter with type of data [String] and layout of [R.layout.adapter_item_numbers]
-        val myAdapter = object : HAdapterBasic<String>(R.layout.adapter_item_layout, { old, new -> old.length == new.length },
-            { adapter, data, position ->
-                // We change item in position 1 on item clicked
-                adapter.setItemAt("This data has changed on item click!", position)
-            }
-        ) {
+        println("$tag: Initializing adapter")
+        basicAdapter = object : HAdapterBasic<String>(R.layout.adapter_item_layout, { old, new -> compareItems(old, new) }, { adapter, data, position -> onItemClicked(adapter, data, position) }) {
             override fun onBind(holder: HViewHolder, data: String) {
                 holder.itemView.findViewById<TextView>(R.id.textView).text = data
             }
         }
 
-        // We set our HAdapter to our RecyclerView
         with(findViewById<RecyclerView>(R.id.recyclerView)) {
-            adapter = myAdapter
+            adapter = basicAdapter
         }
 
-        // We set a list of items to our adapter
-        myAdapter.setItems(listOf("Data #1", "Data #2", "Data #3"))
+    }
 
-        // After 1 second delay, we change item at position 0 text
-        Handler(Looper.getMainLooper()).postDelayed({ myAdapter.setItemAt("This data has been changed!", 0) }, 1000)
+    /**
+     * This method is used when creating [HAdapterBasic] for DiffUtil comparison
+     */
+    private fun compareItems(old: String, new: String) : Boolean = old.length == new.length
 
-        // After 2 seconds delay, we try to remove an item with position that does not exist in our items list
+    /**
+     * This method is used when creating [HAdapterBasic] when an item is clicked
+     *
+     * Changes item's data to 'This data has changed on item click'
+     */
+    private fun onItemClicked(adapter: HAdapterBasic<String>, data: String, position: Int) {
+        println("$tag: Item is clicked on position: $position")
+        adapter.setItemAt("This data has changed on item click!", position)
+    }
+
+    /* Methods below are used to test adapter on different cases */
+
+    /**
+     * Adds dummy data to our adapter
+     */
+    private fun addItems() {
+        println("$tag: Adding dummy data items")
+        basicAdapter.setItems(listOf("Data #1", "Data #2", "Data #3"))
+    }
+
+    /**
+     * After 1 second, Sets item [data] with given [position]
+     */
+    private fun setItemAt(data: String, position: Int) {
         Handler(Looper.getMainLooper()).postDelayed({
-            if(myAdapter.removeItemAt(5)) {
-                Toast.makeText(this@SimpleDataActivity, "Item removed on position 5", Toast.LENGTH_SHORT).show()
+            println("$tag: Replacing data at position: $position")
+            basicAdapter.setItemAt(data, position)
+        }, 1000)
+    }
+
+    /**
+     * After 2 seconds, removes item with [position] and in case when item is removed toasts 'Item removed on [position]'
+     */
+    private fun removeItemAt(position: Int) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            println("$tag: Removing data at position: $position")
+            if(basicAdapter.removeItemAt(position)) {
+                println("$tag: Removed item at position: $position")
+                Toast.makeText(this@SimpleDataActivity, "Item removed on position $position", Toast.LENGTH_SHORT).show()
+            } else {
+                println("$tag: Item at $position doesn't exist")
             }
         }, 2000)
+    }
 
-        // After 3 seconds delay, we try to remove an item that exist on our items list which in this case will toast 'Item removed on position 2'
+    /**
+     * After 3 seconds, sorts all items based on length
+     */
+    private fun sortItems() {
         Handler(Looper.getMainLooper()).postDelayed({
-            if(myAdapter.removeItemAt(2)) {
-                Toast.makeText(this@SimpleDataActivity, "Item removed on position 2", Toast.LENGTH_SHORT).show()
-            }
-        }, 3000)
-
-        // After 4 seconds delay, we sort items by length
-        Handler(Looper.getMainLooper()).postDelayed({
-            myAdapter.sortItems { it.length }
+            println("$tag: Sorting items by length")
+            basicAdapter.sortItems { it.length }
         }, 3000)
     }
 }

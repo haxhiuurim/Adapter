@@ -4,7 +4,6 @@ import adapters.TestAdapterBasic
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.haxhiu.demo.R
@@ -13,29 +12,48 @@ import java.util.*
 
 class MultipleDataActivity : AppCompatActivity(R.layout.recycler_layout) {
 
+    private val tag: String = "MultipleDataActivity"
+    private lateinit var testAdapterBasic: TestAdapterBasic
+    private lateinit var timer: Timer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupAdapter()
+        generateDummyData(200)
     }
 
+    /**
+     * Initializes TestAdapterBasic and sets it to our recyclerView
+     */
     private fun setupAdapter() {
-        // We initialize our TestAdapterBasic we created that extends HAdapterBasic
-        val myAdapter = TestAdapterBasic()
+        println("$tag: Initializing TestAdapterBasic")
+        testAdapterBasic = TestAdapterBasic()
 
         // We set our HAdapter to our RecyclerView
         with(findViewById<RecyclerView>(R.id.recyclerView)) {
-            adapter = myAdapter
+            adapter = testAdapterBasic
         }
+    }
 
-        // For every 200ms we add a new random UUID to our adapter with position 0, this is so we can test it's performance
-        Timer().schedule(object : TimerTask() {
+    /**
+     * Adds random UUID string on position 0 for every [period] given in params and prints items count
+     */
+    private fun generateDummyData(period: Long) {
+        println("$tag: Generating dummy UUID texts every $period ms")
+        timer = Timer()
+        timer.schedule(object : TimerTask() {
             override fun run() {
                 Handler(Looper.getMainLooper()).post {
-                    myAdapter.addItemAt(UUID.randomUUID().toString(), 0)
-                    // We print item count of our adapter
-                    println("++Count: ${myAdapter.itemCount}")
+                    testAdapterBasic.addItemAt(UUID.randomUUID().toString(), 0)
+                    println("$tag: Added new item. Items count: ${testAdapterBasic.itemCount}")
                 }
             }
-        }, 500, 200)
+        }, 500, period)
+    }
+
+    override fun onDestroy() {
+        println("$tag: Destroyed dummy UUID texts generator")
+        timer.cancel()
+        super.onDestroy()
     }
 }
