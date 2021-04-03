@@ -35,16 +35,18 @@ class SimpleDataActivity : AppCompatActivity(R.layout.recycler_layout) {
      */
     private fun setupAdapter() {
         println("$tag: Initializing adapter")
-        basicAdapter = object : HAdapterBasic<String>(R.layout.adapter_item_layout, { old, new -> compareItems(old, new) }, { adapter, data, position -> onItemClicked(adapter, data, position) }) {
-            override fun onBind(holder: HViewHolder, data: String) {
-                holder.itemView.findViewById<TextView>(R.id.textView).text = data
-            }
+        basicAdapter = object : HAdapterBasic<String>(
+            R.layout.adapter_item_layout,
+            { old, new -> compareItems(old, new) },
+            { adapter, data, position -> onItemClicked(adapter, data, position) }) {
+                override fun onBind(holder: HViewHolder, data: String) {
+                    holder.itemView.findViewById<TextView>(R.id.textView).text = data
+                }
         }
 
         with(findViewById<RecyclerView>(R.id.recyclerView)) {
             adapter = basicAdapter
         }
-
     }
 
     /**

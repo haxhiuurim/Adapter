@@ -14,7 +14,7 @@ import java.util.*
 
 class DemoActivity : AppCompatActivity(R.layout.activity_demo) {
 
-    //TODO: Add load more in adapter (with attributes that allow user to set progress bar show/hide, color etc.)
+    //TODO: Add builder pattern to our adapter so user can create both as builder and extending adapter
     //TODO: Add header/footer in adapter (with layouts and types) ~ HAdapter<T>
 
     override fun onCreate(savedInstanceState: Bundle?) {

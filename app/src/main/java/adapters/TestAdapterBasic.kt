@@ -7,13 +7,16 @@ import main.HAdapterBasic
 /**
  * We've created a TestAdapterBasic extending HAdapterBasic
  *
- * When extending HAdapterBasic we must use the following:
- *  1) Adapter layout
- *  2) DiffUtil compare items
- *  3) Item click (Optional)
- *  4) onBind()
+ * When extending HAdapterBasic we must set the following:
+ *  1) Adapter layout (Required)
+ *  2) DiffUtil compare items (Required)
+ *  3) Item click (Optional ~ You can extend HAdapterBasic without setting a click listener for items)
+ *  4) onBind() (Optional ~ You can extend HAdapterBasic without overriding onBind method)
  */
-class TestAdapterBasic : HAdapterBasic<String>(R.layout.adapter_item_layout, { old, new -> old.length == new.length }, null) {
+class TestAdapterBasic : HAdapterBasic<String>(
+    layoutId = R.layout.adapter_item_layout,
+    compareItems = { old, new -> old.length == new.length },
+    onItemClicked = null) {
 
     override fun onBind(holder: HViewHolder, data: String) {
         holder.itemView.findViewById<TextView>(R.id.textView).text = data

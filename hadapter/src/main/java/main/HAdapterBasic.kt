@@ -14,7 +14,7 @@ abstract class HAdapterBasic<T: Any> (private val layoutId: Int,
                                       private val compareItems: (old: T, new:T) -> Boolean,
                                       private val onItemClicked: ((adapter: HAdapterBasic<T>, data: T, position: Int) -> Unit)? = null) : RecyclerView.Adapter<HAdapterBasic.HViewHolder>() {
 
-    abstract fun onBind(holder: HViewHolder, data: T)
+    open fun onBind(holder: HViewHolder, data: T) {}
 
     override fun getItemViewType(position: Int): Int = layoutId
 
