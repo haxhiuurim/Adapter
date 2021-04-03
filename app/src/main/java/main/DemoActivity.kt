@@ -14,9 +14,6 @@ import java.util.*
 
 class DemoActivity : AppCompatActivity(R.layout.activity_demo) {
 
-    //TODO: Add builder pattern to our adapter so user can create both as builder and extending adapter
-    //TODO: Add header/footer in adapter (with layouts and types) ~ HAdapter<T>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupClicks()

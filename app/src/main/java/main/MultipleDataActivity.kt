@@ -7,7 +7,7 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.haxhiu.demo.R
-import data.addItemAt
+import helpers.addItemAt
 import java.util.*
 
 class MultipleDataActivity : AppCompatActivity(R.layout.recycler_layout) {

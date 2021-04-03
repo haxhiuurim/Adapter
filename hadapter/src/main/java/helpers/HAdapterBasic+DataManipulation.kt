@@ -1,6 +1,6 @@
-package data
+package helpers
 
-import main.HAdapterBasic
+import basic.HAdapterBasic
 
 internal fun <T : Any> HAdapterBasic<T>.getModifiableList(): ArrayList<T> =
     ArrayList(differ.currentList)

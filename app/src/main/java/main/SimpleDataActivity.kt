@@ -7,11 +7,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import basic.HAdapterBasic
 import com.haxhiu.demo.R
-import data.removeItemAt
-import data.setItemAt
-import data.setItems
-import data.sortItems
+import helpers.removeItemAt
+import helpers.setItemAt
+import helpers.setItems
+import helpers.sortItems
 
 class SimpleDataActivity : AppCompatActivity(R.layout.recycler_layout) {
 
@@ -35,14 +36,12 @@ class SimpleDataActivity : AppCompatActivity(R.layout.recycler_layout) {
      */
     private fun setupAdapter() {
         println("$tag: Initializing adapter")
-        basicAdapter = object : HAdapterBasic<String>(
+
+        basicAdapter = HAdapterBasic<String>(
             R.layout.adapter_item_layout,
             { old, new -> compareItems(old, new) },
-            { adapter, data, position -> onItemClicked(adapter, data, position) }) {
-                override fun onBind(holder: HViewHolder, data: String) {
-                    holder.itemView.findViewById<TextView>(R.id.textView).text = data
-                }
-        }
+            { adapter, data, position -> onItemClicked(adapter, data, position) },
+            { holder, data -> holder.itemView.findViewById<TextView>(R.id.textView).text = data })
 
         with(findViewById<RecyclerView>(R.id.recyclerView)) {
             adapter = basicAdapter
