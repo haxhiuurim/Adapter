@@ -92,7 +92,7 @@ class HeaderFooterSampleActivity: AppCompatActivity(R.layout.recycler_layout) {
      */
     private fun onItemClicked(adapter: HAdapterParent<String>, data: String, position: Int) {
         println("$tag: Item is clicked on position: $position")
-        adapter.setItemAt(UUID.randomUUID().toString(), position)
+        adapter.setItemAt(position, UUID.randomUUID().toString())
     }
 
     /**

@@ -8,7 +8,6 @@
     android:orientation="vertical">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/multipleData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -18,7 +17,6 @@
         android:text="@string/multiple_data_page" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/simpleDataWithHeaderAndFooter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"

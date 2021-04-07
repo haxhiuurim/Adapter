@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import main.*
-import main.hasItemAt
 
 open class HAdapter<T : Any>(private var headerLayoutId: Int = -1,
                              private var itemLayoutId: Int,
