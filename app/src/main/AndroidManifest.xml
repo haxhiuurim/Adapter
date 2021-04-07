@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="main.SimpleDataActivity" />
-        <activity android:name="main.MultipleDataActivity" />
+        <activity android:name="main.MultipleDataSampleActivity" />
+        <activity android:name="main.HeaderFooterSampleActivity" />
     </application>
 </manifest>

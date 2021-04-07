@@ -10,7 +10,7 @@ import com.haxhiu.demo.R
 import helpers.addItemAt
 import java.util.*
 
-class MultipleDataActivity : AppCompatActivity(R.layout.recycler_layout) {
+class MultipleDataSampleActivity : AppCompatActivity(R.layout.recycler_layout) {
 
     private val tag: String = "MultipleDataActivity"
     private lateinit var testAdapterBasic: TestAdapterBasic
