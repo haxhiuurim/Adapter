@@ -56,7 +56,7 @@ class TestAdapterBasic : HAdapterBasic<String>(
         })
 ```
   
-  
+---
   
 ##### Details of extending HAdapter class below.  
 
@@ -97,6 +97,8 @@ class TestAdapter : HAdapter<String>(
 )
 ```
 
+---
+
 ##### Details of creating HAdapterBasic instance using HAdapterBasicBuilder.
 
 > Example of creating instance of HAdapterBasic class using HAdapterBasicBuilder.
@@ -115,6 +117,8 @@ with(recyclerView) {
     adapter = mySampleAdapter
 }
 ```
+
+---
 
 ##### Details of creating HAdapter instance using HAdapterBuilder.
 
@@ -143,3 +147,4 @@ with(recyclerView) {
     itemAnimator = null
 }
 ```
+---
