@@ -7,7 +7,7 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.haxhiu.demo.R
-import helpers.addItemAt
+import main.addItemAt
 import java.util.*
 
 class MultipleDataSampleActivity : AppCompatActivity(R.layout.recycler_layout) {
@@ -44,7 +44,7 @@ class MultipleDataSampleActivity : AppCompatActivity(R.layout.recycler_layout) {
         timer.schedule(object : TimerTask() {
             override fun run() {
                 Handler(Looper.getMainLooper()).post {
-                    testAdapterBasic.addItemAt(UUID.randomUUID().toString(), 0)
+                    testAdapterBasic.addItemAt(0, UUID.randomUUID().toString())
                     println("$tag: Added new item. Items count: ${testAdapterBasic.itemCount}")
                 }
             }

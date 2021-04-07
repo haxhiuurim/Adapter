@@ -1,9 +1,5 @@
 package main
 
-import main.HAdapterParent
-
-//TODO: Test all these methods belove if everything works perfectly and publish with samples :)
-
 internal fun <T : Any> HAdapterParent<T>.getFixedPosition(position: Int) : Int {
     return if (hasHeader) {
         position - 1
@@ -12,15 +8,15 @@ internal fun <T : Any> HAdapterParent<T>.getFixedPosition(position: Int) : Int {
     }
 }
 
-internal fun <T : Any> HAdapterParent<T>.addHeader(list: ArrayList<T?>) {
-    if(!hasHeader || list.firstOrNull() == null)
+internal fun <T : Any> HAdapterParent<T>.addHeader(list: ArrayList<T?>, isForce: Boolean = false) {
+    if((!hasHeader || list.firstOrNull() == null) && (!isForce && hasHeader))
         return
 
     list.add(0, null)
 }
 
-internal fun <T : Any> HAdapterParent<T>.addFooter(list: ArrayList<T?>) {
-    if(!hasFooter || list.lastOrNull() == null)
+internal fun <T : Any> HAdapterParent<T>.addFooter(list: ArrayList<T?>,  isForce: Boolean = false) {
+    if((!hasFooter || list.lastOrNull() == null) && (!isForce && hasFooter))
         return
 
     list.add(null)
@@ -111,30 +107,26 @@ fun <T : Any> HAdapterParent<T>.removeItemAt(position: Int): Boolean {
 }
 
 fun <T : Any> HAdapterParent<T>.removeItems() {
-    differ.submitList(emptyList())
+    val list = arrayListOf<T?>()
+    addHeader(list, true)
+    addFooter(list, true)
+    differ.submitList(list)
 }
 
-fun <T : Any> HAdapterParent<T>.removeItems(from: Int, to: Int) {
-    with(getModifiableList(true)) {
-        if (from in this.indices && to in this.indices) {
-            this.subList(from, to)
-            setItems(this)
-        }
-    }
-}
-
-fun <T : Any> HAdapterParent<T>.removeItemsIf(filter: (T?) -> (Boolean)) {
+fun <T : Any> HAdapterParent<T>.removeItemsIf(filter: (T?) -> (Boolean?)) {
     val updatedList = arrayListOf<T?>()
-    getModifiableList().forEach {
-        if (filter(it)) {
-            updatedList.add(it)
+    getModifiableList().forEach { item ->
+        filter(item)?.let {
+            if(!it) {
+                updatedList.add(item)
+            }
         }
     }
 
     setItems(updatedList)
 }
 
-fun <T : Any> HAdapterParent<T>.setItemAt(data: T, position: Int): Boolean {
+fun <T : Any> HAdapterParent<T>.setItemAt(position: Int, data: T): Boolean {
     return hasItemAt(position, true)?.let { item ->
         val list = getModifiableList(true)
         list.remove(item)
@@ -145,6 +137,7 @@ fun <T : Any> HAdapterParent<T>.setItemAt(data: T, position: Int): Boolean {
 }
 
 fun <T : Any> HAdapterParent<T>.setItems(data: ArrayList<T?>): Boolean {
+    differ.submitList(null)
     differ.submitList(data)
     return true
 }
@@ -156,13 +149,7 @@ fun <T : Any> HAdapterParent<T>.addItem(data: T) {
     }
 }
 
-fun <T : Any> HAdapterParent<T>.addItemIf(data: T, filter: (T) -> (Boolean)) {
-    if (filter(data)) {
-        addItem(data)
-    }
-}
-
-fun <T : Any> HAdapterParent<T>.addItemAt(data: T, position: Int) {
+fun <T : Any> HAdapterParent<T>.addItemAt(position: Int, data: T) {
     with(getModifiableList(false)) {
         add(position, data)
         differ.submitList(this)
@@ -170,24 +157,13 @@ fun <T : Any> HAdapterParent<T>.addItemAt(data: T, position: Int) {
 }
 
 fun <T : Any> HAdapterParent<T>.addItems(data: List<T>) {
-    with(getModifiableList()) {
+    with(getModifiableList(false)) {
         addAll(data)
         differ.submitList(this)
     }
 }
 
-fun <T : Any> HAdapterParent<T>.addItemsIf(data: List<T>, filter: (T) -> (Boolean)) {
-    with(getModifiableList()) {
-        data.forEach {
-            if (filter(it)) {
-                this.add(it)
-            }
-        }
-        differ.submitList(this)
-    }
-}
-
-fun <T : Any> HAdapterParent<T>.addItemsAt(data: List<T>, position: Int) {
+fun <T : Any> HAdapterParent<T>.addItemsAt(position: Int, data: ArrayList<T>) {
     with(getModifiableList()) {
         addAll(position, data)
         differ.submitList(this)
