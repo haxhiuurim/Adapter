@@ -44,10 +44,10 @@ dependencies {
     
 ```kotlin
 mySampleAdapter = HAdapterBuilder<String>()
-        .setCompareItems{ old, new -> compareItems(old, new)}
+        .setCompareItems{ old, new -> old.length == new.length }
         .setItemLayoutId(R.layout.adapter_item_layout)
-        .setItemOnBindViewHolder { holder, data -> itemOnBindViewHolder(holder, data) }
-        .setItemOnClickListener { adapter, data, position -> onItemClicked(adapter, data, position) }
+        .setItemOnBindViewHolder { holder, data -> /* Bind your items here */ }
+        .setItemOnClickListener { adapter, data, position -> /* Set your item click listener here */ }
         .build()
                 
 with(recyclerView) {
@@ -64,16 +64,16 @@ with(recyclerView) {
     
 ```kotlin
 mySampleAdapter = HAdapterBuilder<String>()
-        .setCompareItems{ old, new -> compareItems(old, new)}
+        .setCompareItems{ old, new -> old.length == new.length }
         .setItemLayoutId(R.layout.adapter_item_layout)
-        .setItemOnBindViewHolder { holder, data -> itemOnBindViewHolder(holder, data) }
-        .setItemOnClickListener { adapter, data, position -> onItemClicked(adapter, data, position) }
+        .setItemOnBindViewHolder { holder, data -> /* Bind your items here */ }
+        .setItemOnClickListener { adapter, data, position -> /* Set your item click listener here */ }
         .setHeaderLayoutId(R.layout.adapter_header_layout)
-        .setHeaderOnBindViewHolder { headerOnBindViewHolder(it) }
-        .setHeaderOnItemClickListener { headerOnItemClicked(it) }
+        .setHeaderOnBindViewHolder { /* Bind your header here */ }
+        .setHeaderOnItemClickListener { /* Set your header click listener here */ }
         .setFooterLayoutId(R.layout.adapter_header_layout)
-        .setFooterOnBindViewHolder { footerOnBindViewHolder(it) }
-        .setFooterOnItemClickListener { footerOnItemClicked(it) }
+        .setFooterOnBindViewHolder { /* Bind your footer here */ }
+        .setFooterOnItemClickListener { /* Set your footer click listener here */ }
         .build()
                 
 with(recyclerView) {
