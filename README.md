@@ -69,11 +69,11 @@ mySampleAdapter = HAdapterBuilder<String>()
         .setItemOnBindViewHolder { holder, data -> /* Bind your items here */ }
         .setItemOnClickListener { adapter, data, position -> /* Set your item click listener here */ }
         .setHeaderLayoutId(R.layout.adapter_header_layout)
-        .setHeaderOnBindViewHolder { /* Bind your header here */ }
-        .setHeaderOnItemClickListener { /* Set your header click listener here */ }
+        .setHeaderOnBindViewHolder { holder -> /* Bind your header here */ }
+        .setHeaderOnItemClickListener { adapter -> /* Set your header click listener here */ }
         .setFooterLayoutId(R.layout.adapter_footer_layout)
-        .setFooterOnBindViewHolder { /* Bind your footer here */ }
-        .setFooterOnItemClickListener { /* Set your footer click listener here */ }
+        .setFooterOnBindViewHolder { holder -> /* Bind your footer here */ }
+        .setFooterOnItemClickListener { adapter -> /* Set your footer click listener here */ }
         .build()
                 
 with(recyclerView) {
