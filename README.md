@@ -43,13 +43,14 @@ dependencies {
   
     
 ```kotlin
-mySampleAdapter = HAdapterBuilder<String>()
+var mySampleAdapter = HAdapterBuilder<String>()
         .setCompareItems{ old, new -> old.length == new.length }
         .setItemLayoutId(R.layout.adapter_item_layout)
         .setItemOnBindViewHolder { holder, data -> /* Bind your items here */ }
         .setItemOnClickListener { adapter, data, position -> /* Set your item click listener here */ }
         .build()
-                
+
+// Applying our adapter and LinearLayoutManager to our recycler
 with(recyclerView) {
     layoutManager = LinearLayoutManager(this@HeaderFooterSampleActivity)
     adapter = mySampleAdapter
@@ -63,7 +64,7 @@ with(recyclerView) {
 `Important: Set itemAnimator = null on your recyclerView on which you're using HAdapter in order to avoid crashes!`  
     
 ```kotlin
-mySampleAdapter = HAdapterBuilder<String>()
+var mySampleAdapter = HAdapterBuilder<String>()
         .setCompareItems{ old, new -> old.length == new.length }
         .setItemLayoutId(R.layout.adapter_item_layout)
         .setItemOnBindViewHolder { holder, data -> /* Bind your items here */ }
@@ -75,7 +76,8 @@ mySampleAdapter = HAdapterBuilder<String>()
         .setFooterOnBindViewHolder { holder -> /* Bind your footer here */ }
         .setFooterOnItemClickListener { adapter -> /* Set your footer click listener here */ }
         .build()
-                
+           
+// Applying our adapter, LinearLayoutManager and itemAnimator as null to our recycler           
 with(recyclerView) {
     layoutManager = LinearLayoutManager(this@HeaderFooterSampleActivity)
     adapter = mySampleAdapter
