@@ -1,7 +1,7 @@
-# HAdapter
+# HAdapter (AsyncListDiffer & DiffUtils)
 ![Version](https://img.shields.io/badge/version-1.0.1-green.svg)
 
-HAdapter is a kotlin library for creating and implementing adapters easier.
+HAdapter is a kotlin library for creating and implementing asynchronous adapters easier. These adapters work on background thread and use diff util to compare items and update only necessary ones.
 
 ## Installation
 
@@ -84,3 +84,24 @@ with(recyclerView) {
 ```
 
 ---
+
+##### List of methods this SDK supports to edit/change data on adapters. T represents your data type!
+ * firstItem() : T?
+ * lastItem() : T?
+ * isEmpty() : Boolean
+ * isNotEmpty() : Boolean
+ * hasItem(data: T) : Boolean
+ * getItems() : ArrayList<T?>
+ * getItemAt(position: Int) : T?
+ * getItemPosition(data: T) : Int
+ * removeItem(data: T) : Boolean
+ * removeItemAt(position: Int) : Boolean
+ * removeItems()
+ * removeItemsIf(filter: (T?) -> (Boolean?))
+ * setItemAt(position: Int, data: T) : Boolean
+ * setItems(data: ArrayList<T?>) : Boolean
+ * addItem(data: T)
+ * addItemAt(position: Int, data : T)
+ * addItems(data: ArrayList<T>)
+ * addItemsAt(position: Int, ArrayList<T>)
+ * sortItems(filter: (T?) -> (R : Comperable?))
