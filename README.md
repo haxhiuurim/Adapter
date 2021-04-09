@@ -23,7 +23,7 @@ allprojects {
 dependencies {
     ...
     ...
-    implementation 'com.github.haxhiuurim:hadapter:1.0.2'
+    implementation 'com.github.haxhiuurim:h-adapter:1.0.2'
 }
 ```
 
