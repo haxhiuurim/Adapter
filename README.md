@@ -32,7 +32,7 @@ dependencies {
 
 ## Creating your adapter
 
-###### This library contains two types of adapters: `HAdapter` and `HAdapterBasic`. Check examples below on how we can use them!  
+###### This SDK offers two types of adapters: `HAdapter` and `HAdapterBasic`. You can use them by creating an instance of adapter, extending adapter or using their builders (HAdapterBuilder & HAdapterBasicBuilder). Check examples below on how we can use them!  
   
   
   
