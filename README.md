@@ -1,5 +1,5 @@
 # HAdapter (AsyncListDiffer & DiffUtils)
-![Version](https://img.shields.io/badge/version-1.0.1-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.2-green.svg)
 
 HAdapter is a kotlin library for creating and implementing asynchronous adapters easier. These adapters work on background thread and use diff util to compare items and update only necessary ones.
 
@@ -23,7 +23,7 @@ allprojects {
 dependencies {
     ...
     ...
-    implementation 'com.github.haxhiuurim:Adapter:1.0.1'
+    implementation 'com.github.haxhiuurim:hadapter:1.0.2'
 }
 ```
 
