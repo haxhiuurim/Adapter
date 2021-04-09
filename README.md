@@ -60,7 +60,7 @@ with(recyclerView) {
 
 ##### Example of creating HAdapter using HAdapterBuilder
   
-  
+`Important: Set itemAnimator = null on your recyclerView on which you're using HAdapter in order to avoid crashes!`  
     
 ```kotlin
 mySampleAdapter = HAdapterBuilder<String>()
