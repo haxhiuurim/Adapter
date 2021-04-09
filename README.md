@@ -71,7 +71,7 @@ mySampleAdapter = HAdapterBuilder<String>()
         .setHeaderLayoutId(R.layout.adapter_header_layout)
         .setHeaderOnBindViewHolder { /* Bind your header here */ }
         .setHeaderOnItemClickListener { /* Set your header click listener here */ }
-        .setFooterLayoutId(R.layout.adapter_header_layout)
+        .setFooterLayoutId(R.layout.adapter_footer_layout)
         .setFooterOnBindViewHolder { /* Bind your footer here */ }
         .setFooterOnItemClickListener { /* Set your footer click listener here */ }
         .build()
