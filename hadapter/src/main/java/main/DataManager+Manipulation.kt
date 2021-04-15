@@ -142,6 +142,17 @@ fun <T : Any> HAdapterParent<T>.setItems(data: ArrayList<T?>): Boolean {
     return true
 }
 
+fun <T : Any> HAdapterParent<T>.setItems(data: ArrayList<T?>, onDataChanged: () -> Unit): Boolean {
+    differ.addListListener { previousList, currentList ->
+        if(previousList != currentList) {
+            onDataChanged.invoke()
+        }
+    }
+    differ.submitList(null)
+    differ.submitList(data)
+    return true
+}
+
 fun <T : Any> HAdapterParent<T>.addItem(data: T) {
     with(getModifiableList()) {
         add(data)
@@ -156,8 +167,20 @@ fun <T : Any> HAdapterParent<T>.addItemAt(position: Int, data: T) {
     }
 }
 
-fun <T : Any> HAdapterParent<T>.addItems(data: List<T>) {
+fun <T : Any> HAdapterParent<T>.addItems(data: ArrayList<T>) {
     with(getModifiableList(false)) {
+        addAll(data)
+        differ.submitList(this)
+    }
+}
+
+fun <T : Any> HAdapterParent<T>.addItems(data: ArrayList<T>, onDataChanged: () -> Unit) {
+    with(getModifiableList(false)) {
+        differ.addListListener { previousList, currentList ->
+            if(previousList != currentList) {
+                onDataChanged.invoke()
+            }
+        }
         addAll(data)
         differ.submitList(this)
     }
